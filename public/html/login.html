@@ -1,26 +1,26 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-  <head>
+<!DOCTYPE html>   <！DOCTYPE html   超文本标记语言 >
+<html   超文本标记语言 lang="zh-CN">
+  <head>   < >负责人
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>登录 - 临时邮箱</title>
-    <style>.precheck-hide body{ visibility: hidden; }</style>
-    <script>
+    <title>登录 - 临时邮箱</title>   Login - Temporary Email
+    <style>.precheck-hide body{ visibility: hidden; }</style>.precheck-hide body{ visibility: hidden; } 该样式代码将隐藏整个页面内容，使页面不可见。
+    <script>   < >脚本
       // 立即检查登录状态（在任何其他脚本之前）
-      (function(){
-        try{
-          var hasToken = document.cookie.split(';').some(function(c){ 
-            return c.trim().indexOf('iding-session=') === 0; 
+      (function   函数(){
+        try{   尝试{
+          var hasToken = document.cookie.split(';').some(function   函数(c){ 
+            return   返回 c.trim().indexOf('iding-session=') === 0; 
           });
           
           // 如果有cookie但是从其他页面跳转过来的，先验证有效性再跳转
           // 避免无效cookie导致的循环跳转和页面闪现
-          if (hasToken && document.referrer) {
+          if   如果 (hasToken && document.referrer) {
             // 异步验证，不阻止页面渲染
-            (async function(){
-              try{
-                const controller = new AbortController();
-                const tid = setTimeout(function(){ try{ controller.abort(); }catch(_){ } }, 1500);
+            (async function   函数(){
+              try{   尝试{
+                const controller = new   新 AbortController();
+                const tid = setTimeout(function   函数(){ try{ controller.abort(); }catch(_){ } }, 1500);
                 const r = await fetch('/api/session', { 
                   method: 'GET', 
                   headers: { 'Cache-Control': 'no-cache' },
@@ -28,11 +28,11 @@
                   signal: controller.signal
                 });
                 clearTimeout(tid);
-                if (r && r.ok){
+                if   如果 (r && r.ok){
                   location.replace('/');
-                } else {
+                } else   其他 {
                   // cookie无效，清除它
-                  document.cookie = 'iding-session=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+                  document.cookie = 'iding-session=； 过期时间=1970 年 1 月 1 日 00:00:00 UTC； 路径=/document.cookie = 'iding-session   会话=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
                 }
               }catch(_){ 
                 // 验证失败，保持在登录页面
@@ -63,11 +63,11 @@
       })();
     </script>
     <script src="/js/auth-guard.js"></script>
-    <script>
+    <script>   < >脚本
       // 已登录访问登录页时直接回首页；登出场景跳过检查
-      (function(){
+      (function(){   (函数(){
         try{ document.documentElement.classList.add('precheck-hide'); }catch(_){ }
-        try{
+        try{   尝试{
           var u = new URL(location.href);
           var fromLogout = (u.searchParams.get('from') === 'logout') || (sessionStorage.getItem('mf:just_logged_out') === '1');
           if (fromLogout){
@@ -78,7 +78,7 @@
         }catch(_){ }
         // Cookie检查已在页面顶部执行，这里跳过重复检查
         // 2) 网络兜底，延长超时时间减少误判
-        try{
+        try{   尝试{
           var controller = new AbortController();
           var tid = setTimeout(function(){ try{ controller.abort(); }catch(_){ } }, 1500); // 从500ms延长到1500ms
           fetch('/api/session', { 
@@ -113,7 +113,7 @@
         <input id="username" class="input" type="text" placeholder="用户名/邮箱" />
         <input id="pwd" class="input" type="password" placeholder="密码" />
         <div style="font-size:12px;color:#64748b;margin-bottom:8px">
-          账号：guest，密码： admin，将进入观看模式。
+          欢迎使用Goblin_MoMo临时邮箱系统。
         </div>
         <button id="login" class="btn">登录</button>
       </div>
